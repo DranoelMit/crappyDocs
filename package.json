@@ -1,0 +1,19 @@
+{
+  "name": "crappydocs",
+  "version": "1.0.0",
+  "description": "Online cooperative text editor",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DranoelMit/crappyDocs.git"
+  },
+  "author": "Tim Leonard",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DranoelMit/crappyDocs/issues"
+  },
+  "homepage": "https://github.com/DranoelMit/crappyDocs#readme"
+}
