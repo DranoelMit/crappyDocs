@@ -1,0 +1,10 @@
+body
+{
+display: flex;
+justify-content: center;
+}
+#page
+{
+     height: 1500px;
+     width: 80%;
+}

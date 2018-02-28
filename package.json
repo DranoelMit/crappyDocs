@@ -12,6 +12,10 @@
   },
   "author": "Tim Leonard",
   "license": "MIT",
+  "dependencies": {
+    "express": "*",
+    "socket.io": "*"
+  },
   "bugs": {
     "url": "https://github.com/DranoelMit/crappyDocs/issues"
   },
