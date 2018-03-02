@@ -4,6 +4,7 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 
 var connections =[];
+var text ="";
 
 server.listen(process.env.PORT || 8000);
 
@@ -23,6 +24,10 @@ io.sockets.on("connection", function(socket){
      {
           connections.splice(connections.indexOf(socket), 1);
           console.log("User Disconnected: " +connections.length + " sockets connected");
+     });
+     socket.on("new text", function(newTxt){
+          text = newTxt;
+          io.sockets.emit("update text", text);
      });
 
 });
