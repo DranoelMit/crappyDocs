@@ -1,10 +1,9 @@
-body
-{
-display: flex;
-justify-content: center;
+body{
+     display: flex;
+     justify-content: center;
 }
-#page
-{
+
+#page{
      height: 1500px;
      width: 80%;
 }
