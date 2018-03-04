@@ -26,11 +26,22 @@ io.sockets.on("connection", function(socket){
           console.log("User Disconnected: " +connections.length + " sockets connected");
      });
      socket.on("get text", function(){
-          socket.emit("update text", text);
+          socket.emit("soft update text", text);
      });
-     socket.on("new text", function(newTxt){
-          text = newTxt;
-          io.sockets.emit("update text", text);
+     socket.on("new char", function(newChar){
+          text+=newChar;
+          for(user in connections){
+               // if(connections[user] !== socket)
+                    //each socket that isnt the user that typed new letter
+                    connections[user].emit("soft update text", newChar);
+     }
+     });
+     socket.on("rem char", function(){
+          text.slice(0,-1);
+          for(user in connections){
+               if(connections[user] !== socket)
+                    connections[user].emit("hard update text", text);
+          }
      });
 
 });
