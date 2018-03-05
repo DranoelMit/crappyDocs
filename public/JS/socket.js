@@ -1,17 +1,25 @@
 var socket = io.connect();
 var $page = $("#page");
 var $document = $(document);
+/* Tab, Space, others if neccesary */
+const SPECIAL_KEYS =[9, 32];
 
 $(window).load(function(){
      socket.emit("get text");
 });
-
-$document.keypress(function(e){
-     console.log(e.keyCode);
-     if(e.keyCode === 8)//backspace
+$document.keydown(function(e){
+     if(SPECIAL_KEYS.includes(e.keyCode)){
+          e.preventDefault();
+     if(e.keyCode == 32)
+          socket.emit("new char"," ");
+     }
+     else if(e.keyCode == 8) //backspace
           socket.emit("rem char");
-     else
-          socket.emit("new char",String.fromCharCode(e.keyCode));
+
+});
+$document.keypress(function(e){
+     e.preventDefault();
+     socket.emit("new char",String.fromCharCode(e.keyCode));
 });
 
 socket.on("soft update text", function(char){

@@ -33,7 +33,7 @@ io.sockets.on("connection", function(socket){
           io.sockets.emit("soft update text", newChar);
      });
      socket.on("rem char", function(){
-          text.slice(0,-1);
+          text = text.slice(0,-1);
           io.sockets.emit("hard update text", text);
      });
 
