@@ -30,18 +30,11 @@ io.sockets.on("connection", function(socket){
      });
      socket.on("new char", function(newChar){
           text+=newChar;
-          for(user in connections){
-               // if(connections[user] !== socket)
-                    //each socket that isnt the user that typed new letter
-                    connections[user].emit("soft update text", newChar);
-     }
+          io.sockets.emit("soft update text", newChar);
      });
      socket.on("rem char", function(){
           text.slice(0,-1);
-          for(user in connections){
-               if(connections[user] !== socket)
-                    connections[user].emit("hard update text", text);
-          }
+          io.sockets.emit("hard update text", text);
      });
 
 });
