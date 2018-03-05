@@ -1,8 +1,8 @@
 var socket = io.connect();
 var $page = $("#page");
 var $document = $(document);
-/* Tab, Space, others if neccesary */
-const SPECIAL_KEYS =[9, 32];
+/* Tab, Space, backSpace, control */
+const SPECIAL_KEYS =[9, 32, 8, 17];
 
 $(window).load(function(){
      socket.emit("get text");
@@ -12,8 +12,11 @@ $document.keydown(function(e){
           e.preventDefault();
      if(e.keyCode == 32)
           socket.emit("new char"," ");
+     else if(e.keyCode == 9)
+          socket.emit("new char", "\t");
      }
-     else if(e.keyCode == 8) //backspace
+
+     if(e.keyCode == 8) //backspace
           socket.emit("rem char");
 
 });
