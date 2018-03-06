@@ -1,8 +1,18 @@
 body{
      display: flex;
      justify-content: center;
+     font-family: monospace;
+     font-size: 12pt;
 }
+#cursor
+{
+background-color: #000000;
+position: absolute;
+width: 2px;
+height: 18px;
+z-index: 1;
 
+}
 #page{
      margin-top: 50px;
      height: 1000px;
