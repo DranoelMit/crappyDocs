@@ -25,9 +25,16 @@ io.sockets.on("connection", function(socket){
           connections.splice(connections.indexOf(socket), 1);
           console.log("User Disconnected: " +connections.length + " sockets connected");
      });
-     socket.on("new text", function(newTxt){
-          text = newTxt;
-          io.sockets.emit("update text", text);
+     socket.on("get text", function(){
+          socket.emit("soft update text", text);
+     });
+     socket.on("new char", function(newChar){
+          text+=newChar;
+          io.sockets.emit("soft update text", newChar);
+     });
+     socket.on("rem char", function(){
+          text = text.slice(0,-1);
+          io.sockets.emit("hard update text", text);
      });
 
 });

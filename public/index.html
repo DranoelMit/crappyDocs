@@ -5,17 +5,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <title>crappyDocs</title>
-        
+
         <script src="/socket.io/socket.io.js"></script>
         <script src="http://code.jquery.com/jquery-latest.min.js"></script>
-        
+
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="./CSS/pageStyle.css">
-        
+
     </head>
 
     <body>
-        <textarea id="page"></textarea>
+         <div id="cursor"></div>
+         <textarea id="page" readonly></textarea>
+        <script src="./JS/cursor.js"></script>
         <script src="./JS/socket.js"></script>
     </body>
 </html>
