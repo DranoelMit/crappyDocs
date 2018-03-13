@@ -4,6 +4,10 @@ const LINE_WIDTH = 1320;
 const LINE_HEIGHT = 23.5;
 const CHAR_WIDTH = 8.81;
 
+const MCPL= 150; //max characters per line
+var lineNum = 0;
+var lineOffset = 0; //how many characters in the cursor is
+
 var $cursor = $("#cursor");
 
 var cursorPos = {
@@ -39,5 +43,8 @@ function updateCursor(xRate, yRate){
      }
      $cursor.css("top", cursorPos.y+"px");
      $cursor.css("left", cursorPos.x+"px");
-     console.log("x: "+cursorPos.x+", y: "+cursorPos.y);
+
+     lineNum = (cursorPos.y-PAGE_Y)/LINE_HEIGHT;
+     lineOffset = Math.floor((cursorPos.x-PAGE_X)/CHAR_WIDTH);
+     console.log("line# "+lineNum+"  offset# "+lineOffset);
 }

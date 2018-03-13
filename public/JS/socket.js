@@ -1,6 +1,7 @@
 var socket = io.connect();
 var $page = $("#page");
 var $document = $(document);
+
 /* Tab, Space, backSpace, control, right, left, up, down */
 const SPECIAL_KEYS =[9, 32, 8, 17, 13, 39, 37, 38, 40];
 
@@ -19,20 +20,20 @@ $document.keydown(function(e){
                     socket.emit("new char", "       ");
                updateCursor(7,0);
           }
-          else if(e.keyCode == 13){
+          else if(e.keyCode == 13){ //enter
                socket.emit("new char", "\n");
-               updateCursor(150,0);
+               updateCursor(MCPL,0);
           }
-          else if(e.keyCode == 39){
+          else if(e.keyCode == 39){ //right
                updateCursor(1,0);
           }
-          else if(e.keyCode == 37){
+          else if(e.keyCode == 37){ // left
                updateCursor(-1,0);
           }
-          else if(e.keyCode == 38){
+          else if(e.keyCode == 38){ //up
                updateCursor(0, -1);
           }
-          else if(e.keyCode == 40){
+          else if(e.keyCode == 40){ //down
                updateCursor(0, 1);
           }
 
