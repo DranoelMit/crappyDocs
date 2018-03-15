@@ -10,7 +10,11 @@ This way, we can keep track of the end of each line for up arrow and deleting, t
 calculating lines based on cursor constants (which are not yet responsive), and append all of these lines
 with \n's to display them as separate lines in the text area
 */
+var numLines = 1;
 var lines = [];
+updateLines();
+
+//need to keep track of lines, and push lines down when creating a new line in the middle of two lines
 
 
 server.listen(process.env.PORT || 8000);
@@ -33,15 +37,44 @@ io.sockets.on("connection", function(socket){
           console.log("User Disconnected: " +connections.length + " sockets connected");
      });
      socket.on("get text", function(){
-          socket.emit("soft update text", text);
+          socket.emit("hard update text", getFullText());
      });
-     socket.on("new char", function(newChar){
-          text+=newChar;
-          io.sockets.emit("soft update text", newChar);
+     socket.on("new char", function(object){
+          lines[object.line] = lines[object.line].substring(0,object.offset) +
+                              object.char + lines[object.line].substring(object.offset);
+          io.sockets.emit("hard update text", getFullText());
      });
-     socket.on("rem char", function(){
-          text = text.slice(0,-1);
-          io.sockets.emit("hard update text", text);
+     socket.on("rem char", function(object){
+          //remove character to the left of the cursor
+          if(object.offset >= 0){
+               lines[object.line] = lines[object.line].slice(0,object.offset) + lines[object.line].slice(object.offset+1);
+          }
+          io.sockets.emit("hard update text", getFullText());
+     });
+     socket.on("new line", function(currentLine){
+
+          for(i=numLines+1; i>currentLine; i--){
+               lines[i] = lines[i-1];
+          }
+          numLines++;
+          lines[currentLine] = "";
+          io.sockets.emit("hard update text", getFullText());
      });
 
 });
+
+function updateLines(){
+     for(i=0; i<numLines; i++){
+          lines[i]="";
+     }
+}
+function getFullText(){
+     var fullText = "";
+     for(i=0; i<numLines; i++){
+          if(i!==numLines-1)
+               fullText+=lines[i]+"\n";
+          else
+               fullText+=lines[i];
+          }
+          return fullText;
+     }

@@ -13,15 +13,18 @@ $document.keydown(function(e){
      if(SPECIAL_KEYS.includes(e.keyCode)){
           e.preventDefault();
           if(e.keyCode == 32){
-               socket.emit("new char"," ");
+               //socket.emit("new char"," ");
+               sendNewChar(" ");
                updateCursor(1,0);
           }
           else if(e.keyCode == 9){
-                    socket.emit("new char", "       ");
+                    // socket.emit("new char", "       ");
+               sendNewChar("       ");
                updateCursor(7,0);
           }
           else if(e.keyCode == 13){ //enter
-               socket.emit("new char", "\n");
+               //socket.emit("new char", "\n");
+               socket.emit("new line", lineNum);
                updateCursor(MCPL,0);
           }
           else if(e.keyCode == 39){ //right
@@ -40,14 +43,15 @@ $document.keydown(function(e){
      }
 
      if(e.keyCode == 8){ //backspace
-          socket.emit("rem char");
+          socket.emit("rem char", {offset: lineOffset-1, line: lineNum});
           updateCursor(-1,0);
      }
 
 });
 $document.keypress(function(e){
      e.preventDefault();
-     socket.emit("new char",String.fromCharCode(e.keyCode));
+     //socket.emit("new char",String.fromCharCode(e.keyCode));
+     sendNewChar(String.fromCharCode(e.keyCode));
      updateCursor(1,0);
 });
 
@@ -57,3 +61,7 @@ socket.on("soft update text", function(char){
 socket.on("hard update text", function(txt){
      $page.val(txt);
 });
+
+function sendNewChar(char){
+     socket.emit("new char", {char: char, line: lineNum, offset: lineOffset});
+}
