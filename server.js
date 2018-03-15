@@ -51,14 +51,23 @@ io.sockets.on("connection", function(socket){
           }
           io.sockets.emit("hard update text", getFullText());
      });
-     socket.on("new line", function(currentLine){
+     socket.on("new line", function(object){
+          let currentTxt = lines[object.line].slice(0, object.offset);
+          let newTxt = lines[object.line].slice(object.offset);
 
-          for(i=numLines+1; i>currentLine; i--){
+          for(i=numLines+1; i>object.line; i--){
                lines[i] = lines[i-1];
           }
           numLines++;
-          lines[currentLine] = "";
+          lines[object.line] = currentTxt;
+          lines[object.line+1] = newTxt;
           io.sockets.emit("hard update text", getFullText());
+     });
+     socket.on("get line length", function(line, callback){
+          callback(lines[line].length);
+     });
+     socket.on("get num lines", function(callback){
+          callback(numLines);
      });
 
 });

@@ -7,7 +7,8 @@ const CHAR_WIDTH = 8.81;
 const MCPL= 150; //max characters per line
 var lineNum = 0;
 var lineOffset = 0; //how many characters in the cursor is
-
+var currentLineLength =0;
+var currentNumLines =1;
 var $cursor = $("#cursor");
 
 var cursorPos = {

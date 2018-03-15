@@ -8,6 +8,7 @@ const SPECIAL_KEYS =[9, 32, 8, 17, 13, 39, 37, 38, 40];
 $(window).load(function(){
      socket.emit("get text");
      updateCursor(0,0);
+     updateNumLines();
 });
 $document.keydown(function(e){
      if(SPECIAL_KEYS.includes(e.keyCode)){
@@ -24,20 +25,29 @@ $document.keydown(function(e){
           }
           else if(e.keyCode == 13){ //enter
                //socket.emit("new char", "\n");
-               socket.emit("new line", lineNum);
+               socket.emit("new line", {line:lineNum, offset:lineOffset});
                updateCursor(MCPL,0);
+               updateNumLines();
           }
           else if(e.keyCode == 39){ //right
-               updateCursor(1,0);
+               if(lineOffset<currentLineLength)
+                    updateCursor(1,0);
           }
           else if(e.keyCode == 37){ // left
                updateCursor(-1,0);
+               updateLineLength(lineNum);
           }
           else if(e.keyCode == 38){ //up
-               updateCursor(0, -1);
+               if(lineNum>0){
+                    updateCursor(0, -1);
+                    updateLineLength(lineNum);
+               }
           }
           else if(e.keyCode == 40){ //down
+               if(lineNum<currentNumLines-1){
                updateCursor(0, 1);
+               updateLineLength(lineNum);
+               }
           }
 
      }
@@ -45,14 +55,15 @@ $document.keydown(function(e){
      if(e.keyCode == 8){ //backspace
           socket.emit("rem char", {offset: lineOffset-1, line: lineNum});
           updateCursor(-1,0);
+          updateLineLength(lineNum);
      }
 
 });
 $document.keypress(function(e){
      e.preventDefault();
-     //socket.emit("new char",String.fromCharCode(e.keyCode));
      sendNewChar(String.fromCharCode(e.keyCode));
      updateCursor(1,0);
+     updateLineLength(lineNum);
 });
 
 socket.on("soft update text", function(char){
@@ -64,4 +75,24 @@ socket.on("hard update text", function(txt){
 
 function sendNewChar(char){
      socket.emit("new char", {char: char, line: lineNum, offset: lineOffset});
+}
+function updateLineLength(line){
+     socket.emit("get line length", line, function(length){
+          currentLineLength = length;
+          if(lineOffset>currentLineLength){
+               lineOffset=currentLineLength;
+               cursorPos.x = PAGE_X+currentLineLength*CHAR_WIDTH;
+               updateCursor(0,0);
+          }
+     });
+}
+function updateNumLines(){
+     socket.emit("get num lines", function(numLines){
+          currentNumLines = numLines;
+          if(lineNum> currentNumLines){
+               lineNum=numLines;
+               cursorPos.y = PAGE_Y+(lineNum*LINE_HEIGHT);
+               updateLineLength(lineNum);
+          }
+     });
 }
