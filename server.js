@@ -63,6 +63,14 @@ io.sockets.on("connection", function(socket){
           lines[object.line+1] = newTxt;
           io.sockets.emit("hard update text", getFullText());
      });
+     socket.on("rem line", function(line){
+          lines[line-1] += lines[line];
+          for(i=line; i<numLines; i++){ //the +1 will take the undefined value from one past the array and use it to overwrire the last line
+               lines[i] = lines[i+1];
+          }
+          numLines--;
+          io.sockets.emit("hard update text", getFullText());
+     });
      socket.on("get line length", function(line, callback){
           callback(lines[line].length);
      });
@@ -72,11 +80,12 @@ io.sockets.on("connection", function(socket){
 
 });
 
-function updateLines(){
+function updateLines(){ //makes all lines blank, really not used rn but can be useful in the future
      for(i=0; i<numLines; i++){
           lines[i]="";
      }
 }
+
 function getFullText(){
      var fullText = "";
      for(i=0; i<numLines; i++){

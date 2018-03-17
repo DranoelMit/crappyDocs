@@ -53,8 +53,15 @@ $document.keydown(function(e){
      }
 
      if(e.keyCode == 8){ //backspace
-          socket.emit("rem char", {offset: lineOffset-1, line: lineNum});
+          if(lineOffset == 0 && lineNum != 0){
+               console.log("booped line");
+               socket.emit("rem line", lineNum);
+          }
+          else
+               socket.emit("rem char", {offset: lineOffset-1, line: lineNum});
+
           updateCursor(-1,0);
+          updateNumLines();
           updateLineLength(lineNum);
      }
 
