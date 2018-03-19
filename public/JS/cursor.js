@@ -15,8 +15,16 @@ var cursorPos = {
      x: PAGE_X,
      y: PAGE_Y
 };
-
+/*
+xRate and yRate should go straight to lineNum and lineOffset,
+from there those values should be used to calculate cursorPos. NOT the other way around
+*/
 function updateCursor(xRate, yRate){
+     // lineOffset+=xRate;
+     // lineNum+=yRate;
+     //
+     // cursorPos.x = PAGE_X + lineOffset*CHAR_WIDTH;
+     // cursorPos.y = PAGE_Y + lineNum*LINE_HEIGHT;
      if(xRate !=0 && yRate ==0){
           cursorPos.x += xRate*CHAR_WIDTH;
 
@@ -32,8 +40,10 @@ function updateCursor(xRate, yRate){
           }
           else if(cursorPos.x >= LINE_WIDTH+PAGE_X)
           {
-               cursorPos.x = PAGE_X;
+               cursorPos.x = PAGE_X+CHAR_WIDTH;
                cursorPos.y += LINE_HEIGHT;
+               socket.emit("new line", {line:lineNum, offset:lineOffset});
+               updateNumLines();
           }
      }
      else if(xRate == 0 && yRate != 0){
