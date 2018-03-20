@@ -4,7 +4,6 @@ var server = require("http").createServer(app);
 var io = require("socket.io").listen(server);
 
 var connections =[];
-var text ="";
 /*instead of one string, make an array of lines, where each line has its own string.
 This way, we can keep track of the end of each line for up arrow and deleting, the only difference is
 calculating lines based on cursor constants (which are not yet responsive), and append all of these lines
