@@ -40,10 +40,9 @@ function updateCursor(xRate, yRate){
           }
           else if(cursorPos.x >= LINE_WIDTH+PAGE_X)
           {
-               cursorPos.x = PAGE_X+CHAR_WIDTH;
+               cursorPos.x = PAGE_X;
                cursorPos.y += LINE_HEIGHT;
                socket.emit("new line", {line:lineNum, offset:lineOffset});
-               updateNumLines();
           }
      }
      else if(xRate == 0 && yRate != 0){

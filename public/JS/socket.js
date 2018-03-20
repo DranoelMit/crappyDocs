@@ -25,7 +25,6 @@ $document.keydown(function(e){
           }
           else if(e.keyCode == 13){ //enter
                //socket.emit("new char", "\n");
-               socket.emit("new line", {line:lineNum, offset:lineOffset});
                updateCursor(MCPL,0);
                updateNumLines();
           }
