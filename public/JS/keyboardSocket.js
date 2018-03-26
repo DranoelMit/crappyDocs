@@ -36,7 +36,7 @@ $document.keydown(function(e){
           }
           else if(e.keyCode == 37){ // left
                     updateCursor(-1,0);
-                    updateLineLength(lineNum);
+                    updateLineLength(lineNum);    
 
           }
           else if(e.keyCode == 38){ //up
