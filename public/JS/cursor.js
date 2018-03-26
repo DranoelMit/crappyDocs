@@ -39,37 +39,6 @@ function updateCursor(xRate, yRate){
           lineNum+= yRate;
      }
 
-     // lineOffset+=xRate;
-     // lineNum+=yRate;
-     //
-     // cursorPos.x = PAGE_X + lineOffset*CHAR_WIDTH;
-     // cursorPos.y = PAGE_Y + lineNum*LINE_HEIGHT;
-     // if(xRate !=0 && yRate ==0){
-     //      cursorPos.x += xRate*CHAR_WIDTH;
-     //
-     //      if(cursorPos.x < PAGE_X){
-     //           if(cursorPos.y > PAGE_Y)
-     //                cursorPos.x = PAGE_X+LINE_WIDTH-CHAR_WIDTH;
-     //           else
-     //                cursorPos.x = PAGE_X;
-     //           cursorPos.y -= LINE_HEIGHT;
-     //           if(cursorPos.y < PAGE_Y){
-     //                cursorPos.y = PAGE_Y;
-     //           }
-     //      }
-     //      else if(cursorPos.x >= LINE_WIDTH+PAGE_X)
-     //      {
-     //           cursorPos.x = PAGE_X;
-     //           cursorPos.y += LINE_HEIGHT;
-     //           socket.emit("new line", {line:lineNum, offset:lineOffset});
-     //      }
-     // }
-     // else if(xRate == 0 && yRate != 0){
-     //      cursorPos.y += yRate*LINE_HEIGHT;
-     //      if(cursorPos.y < PAGE_Y){
-     //           cursorPos.y = PAGE_Y;
-     //      }
-     // }
      $cursor.css("left", (PAGE_X+lineOffset*CHAR_WIDTH)+"rem");
      $cursor.css("top", (PAGE_Y+lineNum*LINE_HEIGHT)+"rem");
 
