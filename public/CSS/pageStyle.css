@@ -1,22 +1,21 @@
 body{
-     display: flex;
-     justify-content: center;
-     font-family: monospace;
-     font-size: 16px;
+     display:            flex;
+     justify-content:    center;
+     font-family:        monospace;
+     font-size:          16px;
 }
-#cursor
-{
-background-color: #000000;
-position: absolute;
-width: 2px;
-height: 18px;
-z-index: 1;
 
+#cursor{
+     background-color:   #000000;
+     position:           absolute;
+     width:              2px;
+     height:             18px;
+     z-index:            1;
 }
+
 #page{
-     margin-top: 50px;
-     height: 1000px;
-     width: 80%;
-     resize: none;
-
+     margin-top:    4rem;
+     height:        100rem;
+     width:         80rem;
+     resize:        none;
 }

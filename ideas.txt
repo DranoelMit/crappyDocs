@@ -1,0 +1,11 @@
+Frontend:
+(functional-ish?)
+react
+em/rem
+
+Backend:
+Put it on the cloud?
+
+
+
+"Life is immutable"

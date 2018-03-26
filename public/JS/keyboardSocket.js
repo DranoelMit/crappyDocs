@@ -25,16 +25,19 @@ $document.keydown(function(e){
           }
           else if(e.keyCode == 13){ //enter
                //socket.emit("new char", "\n");
-               updateCursor(MCPL,0);
+               socket.emit("new line", {line:lineNum, offset:lineOffset});
+               updateCursor(0,1);
                updateNumLines();
+
           }
           else if(e.keyCode == 39){ //right
                if(lineOffset<currentLineLength)
                     updateCursor(1,0);
           }
           else if(e.keyCode == 37){ // left
-               updateCursor(-1,0);
-               updateLineLength(lineNum);
+                    updateCursor(-1,0);
+                    updateLineLength(lineNum);
+
           }
           else if(e.keyCode == 38){ //up
                if(lineNum>0){
@@ -87,7 +90,6 @@ function updateLineLength(line){
           currentLineLength = length;
           if(lineOffset>currentLineLength){
                lineOffset=currentLineLength;
-               cursorPos.x = PAGE_X+currentLineLength*CHAR_WIDTH;
                updateCursor(0,0);
           }
      });
@@ -97,7 +99,6 @@ function updateNumLines(){
           currentNumLines = numLines;
           if(lineNum> currentNumLines){
                lineNum=numLines;
-               cursorPos.y = PAGE_Y+(lineNum*LINE_HEIGHT);
                updateLineLength(lineNum);
           }
      });
