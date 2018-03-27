@@ -25,13 +25,15 @@ function updateCursor(xRate, yRate){
      if(xRate==-1 && lineOffset==0){
           if(lineNum>0){
                lineNum--;
+               updateLineLength(lineNum);
+               lineOffset=currentLineLength;
           }
           //need some way to get length of aboce line and set cursor to the length of that line
      }
      else if(xRate!=0 && lineOffset==MCPL){
           socket.emit("new line", {line:lineNum, offset:lineOffset});
-          lineOffset=0;
-          numLines++;
+          lineOffset=1;
+          lineNum++;
           updateNumLines();
      }
      else{
