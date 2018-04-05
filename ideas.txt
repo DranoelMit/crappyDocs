@@ -9,3 +9,20 @@ Put it on the cloud?
 
 
 "Life is immutable"
+
+
+----------------------------------------------------------------------------------------------------------------
+For the next version:
+
+-Update lines of text, not the whole text
+-Cursor position should be sent to the server 
+-Cursor colors
+-keyboard sockets are abismal, cleaner checks for certain characters.
+
+-Better connection process, nothing happens with no connection (less bugs)
+	ex)
+		Client			Server
+
+		Send character	-->     add/remove character to/on page, change cursor position on server. Update characters and cursor position for everyone
+
+---------------------------------------------------------------------------------------------------------------

@@ -75,7 +75,7 @@ $document.keypress(function(e){
      updateLineLength(lineNum);
 });
 
-socket.on("soft update text", function(char){
+socket.on("soft update text", function(char){ //outdated
      $page.val($page.val()+char);
 });
 socket.on("hard update text", function(txt){
